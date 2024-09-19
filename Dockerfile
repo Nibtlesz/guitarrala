@@ -1,29 +1,20 @@
-# Usa la imagen base de Node.js 22 en su versión Alpine
-FROM node:22 AS builder
+# Utiliza Node.js 22 como base
+FROM node:22-alpine
 
 # Establece el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copia los archivos package.json y package-lock.json al contenedor
+# Copia el package.json y package-lock.json para instalar las dependencias
 COPY package*.json ./
 
-# Instala las dependencias
+# Instala las dependencias del proyecto
 RUN npm install
 
-# Copia el código fuente al contenedor
+# Copia el resto de los archivos de la aplicación
 COPY . .
 
-#Construir el proyecto
-RUN npm run build
+# Expone el puerto donde correrá la aplicación (Vite usa el puerto 3000 por defecto)
+EXPOSE 3000
 
-#Etapa 2: Servir la aplicación
-FROM nginx:stable-alpine
-
-# Copiar los archivos de build generados en la etapa anterior al directorio de Nginx
-COPY --from=builder /app/dist /usr/share/nginx/html
-
-# Exponer el puerto en el que corre Vite
-EXPOSE 80
-
-# Comando para ejecutar la aplicación en modo desarrollo
-CMD ["nginx", "-g", "daemon off;"]
+# Comando por defecto para iniciar el servidor de desarrollo
+CMD ["npm", "run", "dev"]

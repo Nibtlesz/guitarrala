@@ -8,8 +8,10 @@ export default defineConfig({
     watch: {
       usePolling: true,
     },
-    host: true,  // Permite que el servidor escuche desde fuera del contenedor
-    strictPort: true,  // Asegura que no cambie el puerto si está en uso
-    port: 80,  // Puedes ajustar este puerto según tu configuración
+    host: true,  // permite acceder desde fuera del contenedor
+    port: 3000,
+    hmr: {
+      port: 3000, // o el puerto que estés utilizando
+    },
   },
 })

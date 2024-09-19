@@ -1,18 +1,16 @@
 version: '3.8'
 
 services:
-  frontend:
-    image: Nibtlesz/guitarrala
-    container_name: vite-react
+  app:
     build: .
     ports:
-      - "3000:80"
+      - "3000:3000"
     volumes:
-      - .:/app
+      - /Users/emmanuelostria/Desktop/guitarrala/:/app
       - /app/node_modules
     environment:
       - CHOKIDAR_USEPOLLING=true
-    command: ["nginx", "-g", "daemon off;"]
+    command: ["npm", "run", "dev"]
     stdin_open: true
     tty: true
     working_dir: /app
