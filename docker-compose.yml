@@ -1,16 +1,11 @@
-version: '3.8'
-
 services:
   app:
+    image: app
     build: .
     ports:
       - "3000:3000"
     volumes:
-      - /Users/emmanuelostria/Desktop/guitarrala/:/app
+      - /Users/emmanuelostria/Desktop/Desarrollos/guitarrala:/app
       - /app/node_modules
-    environment:
-      - CHOKIDAR_USEPOLLING=true
-    command: ["npm", "run", "dev"]
     stdin_open: true
     tty: true
-    working_dir: /app
